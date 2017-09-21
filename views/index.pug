@@ -1,0 +1,16 @@
+table.table
+    thead
+        tr
+            td= "Nummer"
+            td= "Artiest"
+            td= "Capo"
+            td= "+/-"
+            td= "Check"
+    tbody
+        each d in data
+            tr 
+                td= d.Nummer
+                td= d.Artiest
+                td= d.Capo
+                td= d['+/-']
+                td= d.Check

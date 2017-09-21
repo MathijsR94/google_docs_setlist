@@ -1,11 +1,23 @@
-require('dotenv').config()
-const express = require('express')
-const app = express()
+require('dotenv').config();
 
-app.get('/', function (req, res) {
-  res.send('Hello World!')
-})
+const express = require('express');
+const fs = require('fs');
+const parse = require('csv-parse');
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
-})
+const app = express();
+
+app.set('view engine', 'pug');
+
+app.get('/', (req, res) => {
+  const inputPath = './data/nummers.csv';
+
+  fs.readFile(inputPath, (err, fileData) => {
+    parse(fileData, { columns: true, trim: true }, (parseError, data) => {
+      res.render('index', { data });
+    });
+  });
+});
+
+app.listen(3000, () => {
+  console.log('Example app listening on port 3000!');
+});
